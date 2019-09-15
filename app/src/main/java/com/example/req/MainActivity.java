@@ -33,7 +33,8 @@ import java.util.Scanner;
 public class MainActivity extends Activity {
 
     ProgressDialog dialog;
-
+    String amount="15";
+    String payer="5774e24d8d4e1d6636d769b47fc5a1161cc6133c";
     public HttpResponse postData() {
         // Create a new HttpClient and Post Header
         HttpClient httpclient = new DefaultHttpClient();
@@ -66,6 +67,7 @@ return response;
         super.onCreate(savedInstanceState);
         //postData();
         setContentView(R.layout.activity_main);
+      //  amount=getIntent().getStringExtra();
 
         //new RequestTask().execute("http://89.208.84.235:31080/api/v1/invoice/"); // скрипт, на который посылаем запрос
         new RequestTask().execute("http://ping21ping21.com.xsph.ru");
@@ -88,11 +90,11 @@ return response;
 
             // HTTP request
             JSONObject data = new JSONObject();
-            data.put("amount", "15");
+            data.put("amount", amount);
             data.put("currencyCode", curCode);
             data.put("description", description);
             data.put("number", number);
-            data.put("payer", "5774e24d8d4e1d6636d769b47fc5a1161cc6133c");
+            data.put("payer", payer);
             data.put("recipient", "34d63a8494c444dabe650689f194e5e118d2d936");
 
             OutputStream os = con.getOutputStream();
@@ -141,7 +143,7 @@ return response;
                 HttpPost postMethod = new HttpPost(params[0]);
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
                 // ключ - "json", параметр - json в виде строки
-                nameValuePairs.add(new BasicNameValuePair("json", getJSON("15", "810","shitty","asdasd12343234dsfs","5774e24d8d4e1d6636d769b47fc5a1161cc6133c","34d63a8494c444dabe650689f194e5e118d2d936")));
+                nameValuePairs.add(new BasicNameValuePair("json", getJSON(amount, "810","shitty",String.valueOf(Math.random()*4000),payer,"34d63a8494c444dabe650689f194e5e118d2d936")));
                 UrlEncodedFormEntity entity = new UrlEncodedFormEntity(nameValuePairs, "UTF-8");
                 postMethod.setEntity(entity);
                 //return hc.execute(postMethod, res);
